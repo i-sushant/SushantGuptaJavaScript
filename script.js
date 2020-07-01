@@ -23,7 +23,9 @@ class Authentication {
     const username = this.username_field.value;
     const password = this.password_field.value;
     if (username.length == 0 || password.length == 0) {
-      swal({ text: "No input provided" });
+      swal({
+        text: "No input provided"
+      });
     } else if (username.length > 0 && password.length > 0) {
       const type = this.submit_btn.getAttribute("data-actionType");
       if (type == 1)
@@ -38,23 +40,33 @@ class Authentication {
         });
       }
     } else {
-      swal({ text: "Error Occured" });
+      swal({
+        text: "Error Occured"
+      });
     }
   }
   onLogin(payload) {
     const validUser = this.user.has(payload.username);
     if (!validUser) {
-      swal({ text: "User does not exist" });
+      swal({
+        text: "User does not exist"
+      });
     } else {
       if (this.user.get(payload.username) == payload.password) {
-        swal({ text: "Welcome back to EPAM Systems" });
-      } else swal({ text: "Wrong Credentials" });
+        swal({
+          text: "Welcome back to EPAM Systems"
+        });
+      } else swal({
+        text: "Wrong Credentials"
+      });
     }
     this.resetField();
   }
   onRegister(payload) {
     if (this.user.has(payload.username)) {
-      swal({ text: "User already exists" });
+      swal({
+        text: "User already exists"
+      });
     } else {
       if (
         this.checkValidEmail(payload.username) &&
@@ -62,19 +74,24 @@ class Authentication {
       ) {
         this.user.set(payload.username, payload.password);
         swal({
-          text:
-            "Registration done!! \nIt's so exciting to have you on board. You may proceed with sign in now",
+          text: "Registration done!! \nIt's so exciting to have you on board. You may proceed with sign in now",
         });
       } else {
         if (
           !this.checkValidEmail(payload.username) &&
           !this.checkPassword(payload.password)
         )
-          swal({ text: "Wrong email and password" });
+          swal({
+            text: "Wrong email and password"
+          });
         else if (!this.checkValidEmail(payload.username))
-          swal({ text: "Invalid Email" });
+          swal({
+            text: "Invalid Email"
+          });
         else if (!this.checkPassword(payload.password))
-          swal({ text: "Password does not match criteria" });
+          swal({
+            text: "Password does not match criteria"
+          });
       }
     }
     this.resetField();
@@ -110,7 +127,6 @@ const submit = () => authHandler.submitHandler();
 
 const showRules = () => {
   swal({
-    text:
-      "Password show be 6-20 characters long and contain at least one numeric digit, one uppercase and one lowercase letter",
+    text: "Password should be 6-20 characters long and contain at least one numeric digit, one uppercase and one lowercase letter",
   });
 };
